@@ -1,0 +1,119 @@
+Variable Name,Variable description
+StoreID,Store Unique identifier
+CreationDate,Date record was created
+StoreName,Store Name
+StoreAddress,Store Address
+ZCTA,ZIP code tabulation areas
+ZIPcode,Store ZIP code
+BoroName,Boro (name)
+latitude,Latitude
+longitude,Longitude
+Xcoord,Projected X coordinate 
+Ycoord,Projected Y coordinate
+Census.2010.PUMA,2010 Census PUMA
+CD.Code,Community District Code
+Census.CD.Name,Community District Name
+DiscountCard,Does the stoer have a discount card?
+OrangesSold,Are oranges sold in this supermarket
+OrangesPrefSold,Are navel oranges available and priced by the pound?
+OrangesBrand,What brand of navel oranges are being sold?
+OrangesPrefPrice,What is the price of 1 lb. of navel oranges?
+OrangesPrefSale,Are the navel oranges on sale?
+OrangesAlt,What is the type of orange?
+OrangesAltBrand,What is the brand name of this orange option(if provided)?
+OrangesAltUnit,What is the unit of sale of the orange option?
+OrangesAltAmount,What is the amount of the orange option (lbs. or number of pieces)?
+OrangesAltPrice,What is the price of the orange option?
+OrangesAltSale,Is the orange option on sale?
+OrangesComments,Comments on orange option (if applicable):
+OrangesOrganic,Are the oranges labeled organic?
+BananasPrefSold,Are bananas sold by the pound in this supermarket?
+BananasPrefBrand,What is the brand name of the bananas (if provided)?
+BananasPrefPrice,What is the price of 1 lb. of bananas?
+BananasOrganic,Are the bananas labeled organic?
+BananasPrefSale,Are the bananas on sale?
+StrawberriesPrefSold,Are strawberries in a 1 lb. container sold in this supermarket?
+StrawberriesPrefBrand,What is the brand name of the strawberries (if provided)?
+StrawberriesPrefPrice,What is the price of a 1 lb. container of strawberries?
+StrawberriesPrefSale,Are the strawberries on sale?
+StrawberriesOrganic,Are the strawberries labeled organic?
+TomatoesSold,Are tomatoes sold in this supermarket?
+TomatoesPrefSold,Are vine tomatoes sold by the pound in this supermarket?
+TomatoesPrefBrand,What is the brand name of the vine tomatoes (if provided)?
+TomatoesPrefPrice,What is the price of 1 lb. of vine tomatoes?
+TomatoesPrefSale,Are the vine tomatoes on sale?
+TomatoesAlt,What is the type of tomato?
+TomatoesAltBrand,What is the brand name of the tomato option (if provided)?
+TomatoesAltUnit,What is the unit of sale for the tomato option?
+TomatoesAltAmount,What is the amount of the tomato option (lbs. or number of pieces)?
+TomatoesAltPrice,What is the price of the tomato option?
+TomatoesAltSale,Is the tomato option on sale?
+TomatoesComments,Comments on the tomato option (if applicable):
+TomatoesOrganic,Are the tomatoes labeled organic?
+LettuceSold,Is lettuce sold in this supermarket?
+LettucePrefSold,Is one head of romaine lettuce available?
+LettucePrefBrand,What is the brand name of the romaine lettuce (if provided)?
+LettucePrefPrice,What is the price of one head of romaine lettuce?
+LettucePrefSale,Is the one head of romaine lettuce on sale?
+LettuceAlt,What is the type of lettuce?
+LettuceAltBrand,What is the brand name of the lettuce option (if provided)?
+LettuceAltAmount,What is the quantity of the lettuce option?
+LettuceAltPrice,What is the price of the lettuce option?
+LettuceAltSale,Is the lettuce option on sale?
+LettuceComment,Comments on the lettuce option (if applicable):
+LettuceOrganic,Is the lettuce labeled organic?
+PotatoesSold,Are potatoes sold in this supermarket?
+PotatoesPrefSold,Are russet potatoes sold by the pound in this supermarket?
+PotatoesPrefBrand,What is the brand name (if provided)?
+PotatoesPrefPrice,What is the price of 1 lb. of russet potatoes?
+PotatoesPrefSale,Are the potatoes on sale?
+PotatoesAlt,What is the type of potato?
+PotatoesAltBrand,What is the brand name of the potato option (if provided)?
+PotatoesAltUnit,What is the unit of sale of the potato option?
+PotatoesAltAmount,What is the amount of the potato option (lbs. or number of pieces)?
+PotatoesAltPrice,What is the price of the potato option?
+PotatoesAltSale,Is the potato option on sale?
+PotatoesComments,Comments on the potato option (if applicable):
+PotatoesOrganic,Are the potatoes labeled organic?
+BeefSold,Is prepackaged ground beef sold in this supermarket?
+BeefPrefSold,Is prepackaged 90% lean ground beef sold by the pound in this supermarket?
+BeefPrefBrand,What is the brand name of the prepackaged of 1 lb. of 90% lean ground beef (if provided)?
+BeefPrefPrice,What is the price of prepackaged 1 lb. of 90% lean ground beef?
+BeefPrefSale,Is the prepackaged 1 lb. of 90% lean ground beef on sale?
+BeefAltLean,What is the lean percentage of this ground beef (if available)?
+BeefAlt,What type of beef (if provided)?
+BeefAltBrand,What is the brand name of the ground beef option (if provided)?
+BeefAltWeight,What is the weight of the ground beef option (lbs.)?
+BeefAltPrice,What is the price of the ground beef option?
+BeefAltSale,Is the ground beef option on sale?
+BeefComment,Comments on the ground beef option (if applicable):
+BeefOrganic,Is theground beef labeled organic?
+MilkSold,Is milk sold in this supermarket?
+MilkPrefSold,"Is 1% fat, 1/2 gallon milk available?"
+MilkPrefBrand,"What is the brand name 1% fat, 1/2 gallon of milk (if provided)?"
+MilkPrefPrice,"What is the price of 1% fat, 1/2 gallon of milk?"
+MilkPrefSale,"Is the 1% fat, 1/2 gallon of milk on sale?"
+MilkAltBrand,What is the brand name of the milk option (if provided)?
+MilkAltSize,What is the size of the container for the Milk option?
+MilkAltFat,What is the fat content for the Milk option?
+MilkAltPrice,What is the price of the milk option?
+MilkAltSale,Is the milk option on sale?
+MilkComment,Comments on the milk option (if applicable):
+MilkOrganic,Is the milk labeled organic?
+EggsPrefSold,Are large eggs sold by the dozen in this supermarket?
+EggsPrefBrand,What is the brand name of the dozen large eggs (if provided)?
+EggsPrefPrice,What is the price of a dozen large eggs?
+EggsOrganic,Are the eggs labeled organic?
+EggsPrefSale,Are the eggs on sale?
+BreadSold,Is bread sold in this supermarket?
+BreadPrefSold,Is whole wheat bread sold by the loaf in this supermarket?
+BreadPrefBrand,What is the brand name of the whole wheat bread (if provided)?
+BreadPrefPrice,What is the price of a loaf of whole wheat bread?
+BreadPrefSale,Is the loaf of whole wheat bread on sale?
+BreadAlt,What is the type of bread?
+BreadAltBrand,What is the brand name of the bread type (if provided)?
+BreadAltPrice,What is the price of the bread option?
+BreadAltSale,Is the loaf of bread option on sale?
+BreadComment,Comments on the bread option (if applicable):
+BreadOrganic,Is the loaf of bread labeled organic?
+Comment,Overall comments

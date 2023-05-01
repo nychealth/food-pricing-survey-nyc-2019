@@ -1,0 +1,335 @@
+---
+title: "FoodPricing2019_NeighborhoodCharacteristics"
+author: "Aldo Crossa"
+date: "2023-04-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Survey of food prices in NYC, 2019: Neighborhood Characteristics
+
+This code was writtedn to generate neighborhood-level estimates of various socioeconomic characteristics. This script pulls data from the 2015-2019 American community Survey, using the Census API.
+
+We begin by loading the necessary packages
+
+```{r Load packages}
+###load packages###
+library(censusapi)
+library(data.table)
+library(dplyr)
+library(stringr)
+library(sqldf)
+library(xlsx)
+
+setwd("<<insert path here>>")
+###API key (sign up for a key here: https://api.census.gov/data/key_signup.html)
+mycensuskey <-"<<insert census key here>>"
+
+
+```
+
+## ACS variables to pull from the census API 
+
+Here we define what variables to pull from the Census API in order to calculate the neighborhood level indicators. Define the labels for each variable and group the variables.
+
+```{r Variables to pull, echo=FALSE}
+
+#keep labels for all variables that will be used in the neighborhood-level indicators
+
+varlabels <- c("B25001_001E" , "Total (For housing Units)", 
+"B25003_001E" , "Total (For housing units by tenure)", 
+"B25003_002E" , "Total: Owner occupied", 
+"B25106_024E" , "Total: Renter-occupied housing units:", 
+"B25106_028E" , "Total: Renter-occupied housing units: Less than $20,000: 30 percent or more", 
+"B25106_032E" , "Total: Renter-occupied housing units: $20,000 to $34,999: 30 percent or more", 
+"B25106_036E" , "Total: Renter-occupied housing units: $35,000 to $49,999: 30 percent or more", 
+"B25106_040E" , "Total: Renter-occupied housing units: $50,000 to $74,999: 30 percent or more", 
+"B25106_044E" , "Total: Renter-occupied housing units: $75,000 or more: 30 percent or more", 
+"B25106_045E" , "Total: Renter-occupied housing units: Zero or negative income", 
+"B25077_001E" , "Median value (dollars)", 
+"B25076_001E" , "Lower value quartile (dollars)", 
+"B25078_001E" , "Upper value quartile (dollars)", 
+"B22001_001E" , "Total: (For SNAP)", 
+"B22001_002E" , "Total: Household received Food Stamps/SNAP in the past 12 months:", 
+"C17002_001E" , "Total (for poverty)", 
+"C17002_002E" , "Total: Ratio income to poverty level, Under .50", 
+"C17002_003E" , "Total: Ratio income to poverty level, .50 to .99", 
+"B23025_001E" , "Total (for employment, population 16+)", 
+"B23025_003E" , "Total: In labor force: Civilian labor force:", 
+"B23025_004E" , "Total: In labor force: Civilian labor force: Employed", 
+"B06009_001E" , "Total (For educational attainment)", 
+"B06009_002E" , "Total: Less than high school graduate", 
+"B16005_001E" , "Total (For language)", 
+"B16005_007E" , "Total>Native>Speak Spanish>Speak English \"not well\"", 
+"B16005_008E" , "Total>Native>Speak Spanish>Speak English \"not at all\"", 
+"B16005_012E" , "Total>Native>Speak other Indo-European languages>Speak English \"not well\"", 
+"B16005_013E" , "Total>Native>Speak other Indo-European languages>Speak English \"not at all\"", 
+"B16005_017E" , "Total>Native>Speak Asian and Pacific Island languages>Speak English \"not well\"", 
+"B16005_018E" , "Total>Native>Speak Asian and Pacific Island languages>Speak English \"not at all\"", 
+"B16005_022E" , "Total>Native>Speak other languages>Speak English \"not well\"", 
+"B16005_023E" , "Total>Native>Speak other languages>Speak English \"not at all\"", 
+"B16005_029E" , "Total>Foreign born>Speak Spanish>Speak English \"not well\"", 
+"B16005_030E" , "Total>Foreign born>Speak Spanish>Speak English \"not at all\"", 
+"B16005_034E" , "Total>Foreign born>Speak other Indo-European languages>Speak English \"not well\"", 
+"B16005_035E" , "Total>Foreign born>Speak other Indo-European languages>Speak English \"not at all\"", 
+"B16005_039E" , "Total>Foreign born>Speak Asian and Pacific Island languages>Speak English \"not well\"", 
+"B16005_040E" , "Total>Foreign born>Speak Asian and Pacific Island languages>Speak English \"not at all\"", 
+"B16005_044E" , "Total>Foreign born>Speak other languages>Speak English \"not well\"", 
+"B16005_045E" , "Total>Foreign born>Speak other languages>Speak English \"not at all\"", 
+"B02001_001E" , "Total (for race)", 
+"B02009_001E" , "Total:Black or African American", 
+"B03001_001E" , "Total: (for Hispanic)", 
+"B03001_003E" , "Total: Hispanic or Latino:", 
+"B02011_001E" , "Total: Asian ", 
+"B02013_001E" , "Total: Some other race", 
+"B27010_002E" , "Total: Under 19 years: ", 
+"B27010_017E" , "Total: Under 19 years: No health insurance coverage", 
+"B27010_018E" , "Total: 19 to 34 years: ", 
+"B27010_033E" , "Total: 19 to 34 years: No health insurance coverage", 
+"B27010_034E" , "Total: 35 to 64 years: ", 
+"B27010_050E" , "Total: 35 to 64 years: No health insurance coverage", 
+"B27010_051E" , "Total: 65 years and over: ", 
+"B27010_066E" , "Total: 65 years and over: No health insurance coverage", 
+"B19083_001E" , "Gini Index of income inequality")
+
+varattr <- as.data.frame(matrix(varlabels, byrow = 2, ncol = 2))
+names(varattr) <- c("Variable.Name", "Variable.label")
+
+AllVars <- varattr$Variable.Name
+
+#### Group variables to use later in the calcultion of the indicators
+
+# % Owner occupied
+homevars <- c("B25001_001E","B25003_002E")
+
+ 
+# % Rent burdened
+
+rentvars <- c("B25106_028E","B25106_032E","B25106_036E","B25106_040E","B25106_044E","B25106_024E")
+
+
+# % Household value
+
+HHvars = "B25077_001E"
+
+
+# % Cash Assistanceship or SNAP
+
+snapvars = c("B22001_002E", "B22001_001E")
+
+ 
+#   % Poverty 
+
+povertyvars <- c("C17002_002E","C17002_003E","C17002_001E")
+
+# % Employment Status (out of the entire population, not just in the labor force)
+
+employvars <- c("B23025_004E", "B23025_001E")
+
+ 
+# % Educational attainment
+
+educvars <- c("B06009_002E","B06009_001E")
+
+
+# % linguistic isolation?? Use "Ability to speak english"
+
+langvars <- c("B16005_007E", "B16005_008E", "B16005_012E", "B16005_013E", "B16005_017E",
+               "B16005_018E", "B16005_022E", "B16005_023E", "B16005_029E", "B16005_030E",
+               "B16005_034E", "B16005_035E", "B16005_039E", "B16005_040E", "B16005_044E",
+               "B16005_045E", "B16005_001E")
+
+# %%%% % Black/Black American 
+
+pblackvars <- c("B02009_001E","B02001_001E")
+ 
+# %%%% % Hispanic/Latino
+
+platinovars <- c("B03001_003E", "B03001_001E")
+
+
+paapivar <- c("B02011_001E", "B02001_001E")
+
+
+# %%%% Other
+
+pothervars <- c("B02013_001E", "B02001_001E")
+
+# % No health insurance
+
+insrvars <- c("B27010_002E","B27010_018E","B27010_034E","B27010_051E",
+              "B27010_017E","B27010_033E","B27010_050E","B27010_066E")
+
+
+# % Gini Index
+
+GINIvars <- "B19083_001E"
+
+```
+
+#NYC ZIP codes 
+
+These are the ZIP codes for NYC
+
+```{r NYC ZIP codes, echo=FALSE}
+
+ZCTA_2010 <- c("10001", "10002", "10003", "10004", "10005", "10006", "10007", "10009", "10010", "10011", "10012", 
+               "10013", "10014", "10016", "10017", "10018", "10019", "10020", "10021", "10022", "10023", "10024", 
+               "10025", "10026", "10027", "10028", "10029", "10030", "10031", "10032", "10033", "10034", "10035",
+               "10036", "10037", "10038", "10039", "10040", "10044", "10065", "10069", "10075", "10103", "10110", 
+               "10111", "10112", "10115", "10119", "10128", "10152", "10153", "10154", "10162", "10165", "10167", 
+               "10168", "10169", "10170", "10171", "10172", "10173", "10174", "10177", "10199", "10271", "10278", 
+               "10279", "10280", "10282", "10301", "10302", "10303", "10304", "10305", "10306", "10307", "10308", 
+               "10309", "10310", "10311", "10312", "10314", "10451", "10452", "10453", "10454", "10455", "10456", 
+               "10457", "10458", "10459", "10460", "10461", "10462", "10463", "10464", "10465", "10466", "10467", 
+               "10468", "10469", "10470", "10471", "10472", "10473", "10474", "10475", "11001", "11003", "11004", 
+               "11005", "11040", "11101", "11102", "11103", "11104", "11105", "11106", "11109", "11201", "11203", 
+               "11204", "11205", "11206", "11207", "11208", "11209", "11210", "11211", "11212", "11213", "11214", 
+               "11215", "11216", "11217", "11218", "11219", "11220", "11221", "11222", "11223", "11224", "11225", 
+               "11226", "11228", "11229", "11230", "11231", "11232", "11233", "11234", "11235", "11236", "11237", 
+               "11238", "11239", "11351", "11354", "11355", "11356", "11357", "11358", "11359", "11360", "11361", 
+               "11362", "11363", "11364", "11365", "11366", "11367", "11368", "11369", "11370", "11371", "11372",
+               "11373", "11374", "11375", "11377", "11378", "11379", "11385", "11411", "11412", "11413", "11414", 
+               "11415", "11416", "11417", "11418", "11419", "11420", "11421", "11422", "11423", "11424", "11425", 
+               "11426", "11427", "11428", "11429", "11430", "11432", "11433", "11434", "11435", "11436", "11451", 
+               "11691", "11692", "11693", "11694", "11697", "99999")
+
+zcta.string <- paste(ZCTA_2010, collapse = ",")
+
+```
+
+#Next, pull the data using the Census API
+
+Data will be pulled from the ACS 2015-2019 5-year estimates using the "getCensus" function within the censusapi package. 
+
+
+```{r Pull data, echo= FALSE}
+
+# Pull the data from the API
+acsdata5y_zcta <- getCensus(name = "acs/acs5",
+                                     vintage = 2019,
+                                     key = mycensuskey,
+                                     vars = AllVars,
+                                     region = paste0("zip code tabulation area:",zcta.string),
+                                     regionin = "state:36")
+
+
+# Add labels to the variables 
+for (i in 1:dim(varattr)[1]){
+    setattr( acsdata5y_zcta[, varattr$Variable.Name[i]], 
+             "label", 
+             varattr$Variable.label[i])
+}
+
+
+```
+
+
+# Calculating Neighborhood level indicators
+
+```{r Get Indicators, echo = FALSE}
+
+#### Create Indicators ----
+acsdata5y_zcta <-  
+  subset(acsdata5y_zcta, subset = (B02001_001E > 0 & !(zip_code_tabulation_area %in% c(10162, 10279, 11430)))) %>%
+            mutate( percent_owner = B25003_002E/B25001_001E,
+                    percent_rentburdened = (B25106_028E+B25106_032E+B25106_036E+B25106_040E+B25106_044E)/B25106_024E,
+                    HH_value = case_when(B25077_001E >= 0 ~ B25077_001E),
+                    percent_snap = B22001_002E / B22001_001E,
+                    percent_poverty = (C17002_002E+C17002_003E)/C17002_001E,
+                    percent_employed = B23025_004E / B23025_001E,
+                    percent_lths = B06009_002E/B06009_001E,
+                    percent_noenglish = 
+                      (B16005_007E + B16005_008E + B16005_012E + B16005_013E + B16005_017E +
+                         B16005_018E + B16005_022E + B16005_023E + B16005_029E + B16005_030E +
+                         B16005_034E + B16005_035E + B16005_039E + B16005_040E + B16005_044E +
+                         B16005_045E) / B16005_001E,
+                    percent_black = B02009_001E/B02001_001E,
+                    percent_latino = B03001_003E/B03001_001E,
+                    percent_aapi = B02011_001E/B02001_001E,
+                    percent_other = B02013_001E/B02001_001E,
+                    percent_noinsurance = (B27010_017E+B27010_033E+B27010_050E+B27010_066E)/
+                                          (B27010_002E+B27010_018E+B27010_034E+B27010_051E),
+                    GINI_index = case_when(B19083_001E > 0 ~ B19083_001E)
+            )
+
+#### Set labels for new variables ----
+setattr( acsdata5y_zcta$percent_owner, "label", "% Owner occupied")
+setattr( acsdata5y_zcta$percent_rentburdened, "label", "% Rent burdened")
+setattr( acsdata5y_zcta$HH_value, "label", "Median home value")
+setattr( acsdata5y_zcta$percent_snap, "label", "% SNAP recipients")
+setattr( acsdata5y_zcta$percent_poverty, "label", "% Living in poverty")
+setattr( acsdata5y_zcta$percent_employed, "label", "% Employed")
+setattr( acsdata5y_zcta$percent_lths, "label", "% Less than high school")
+setattr( acsdata5y_zcta$percent_noenglish, "label", "% Not english speaker")
+setattr( acsdata5y_zcta$percent_black, "label", "% Black or African American")
+setattr( acsdata5y_zcta$percent_latino, "label", "% Latino")
+setattr( acsdata5y_zcta$percent_aapi, "label", "% AAPI")
+setattr( acsdata5y_zcta$percent_other, "label", "% Other Race")
+setattr( acsdata5y_zcta$percent_noinsurance, "label", "% No insurance")
+setattr( acsdata5y_zcta$GINI_index, "label", "GINI index of income inequality")
+
+
+```
+
+
+#Categorizing indicators
+
+```{r Categorizing indicators, echo = FALSE}
+
+#### Generate quartiles for each indicator ----
+acsdata5y_zcta <-  
+  acsdata5y_zcta %>%
+  mutate( qrt_percent_owner = cut(100*percent_owner, 
+                                  quantile(100*percent_owner, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_rentburdened = cut(100*percent_rentburdened,
+                                         quantile(100*percent_rentburdened, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_HH_value = cut(HH_value,
+                             quantile(HH_value, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_snap = cut(100*percent_snap,
+                                 quantile(100*percent_snap, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_poverty = cut(100*percent_poverty,
+                                    quantile(100*percent_poverty, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_employed = cut(100*percent_employed,
+                                     quantile(100*percent_employed, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_lths = cut(100*percent_lths,
+                                 quantile(100*percent_lths, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_noenglish = cut(100*percent_noenglish,
+                                      quantile(100*percent_noenglish, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_black = cut(100*percent_black,
+                                  quantile(100*percent_black, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_latino = cut(100*percent_latino,
+                                   quantile(100*percent_latino, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_aapi = cut(100*percent_aapi,
+                                 quantile(100*percent_aapi, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_other = cut(100*percent_other,
+                                  quantile(100*percent_other, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_percent_noinsurance = cut(100*percent_noinsurance,
+                                        quantile(100*percent_noinsurance, probs =seq(0,1,0.25), na.rm = TRUE, names = T)),
+          qrt_GINI_index = cut(GINI_index,
+                                quantile(GINI_index, probs =seq(0,1,0.25), na.rm = TRUE, names = T))
+  )
+
+#### Create labels for categorized indicators
+setattr( acsdata5y_zcta$qrt_percent_owner, "label", "(Quartiles) % Owner occupied")
+setattr( acsdata5y_zcta$qrt_percent_rentburdened, "label", "(Quartiles) % Rent burdened")
+setattr( acsdata5y_zcta$qrt_HH_value, "label", "(Quartiles) Median home value")
+setattr( acsdata5y_zcta$qrt_percent_snap, "label", "(Quartiles) % SNAP recipients")
+setattr( acsdata5y_zcta$qrt_percent_poverty, "label", "(Quartiles) % Living in poverty")
+setattr( acsdata5y_zcta$qrt_percent_employed, "label", "(Quartiles) % Employed")
+setattr( acsdata5y_zcta$qrt_percent_lths, "label", "(Quartiles) % Less than high school")
+setattr( acsdata5y_zcta$qrt_percent_noenglish, "label", "(Quartiles) % Not english speaker")
+setattr( acsdata5y_zcta$qrt_percent_black, "label", "(Quartiles) % Black or African American")
+setattr( acsdata5y_zcta$qrt_percent_latino, "label", "(Quartiles) % Latino")
+setattr( acsdata5y_zcta$qrt_percent_aapi, "label", "(Quartiles) % AAPI")
+setattr( acsdata5y_zcta$qrt_percent_other, "label", "(Quartiles) % Other Race")
+setattr( acsdata5y_zcta$qrt_percent_noinsurance, "label", "(Quartiles) % No insurance")
+setattr( acsdata5y_zcta$qrt_GINI_index, "label", "(Quartiles) GINI Index of income inequality")
+
+
+```
+
+

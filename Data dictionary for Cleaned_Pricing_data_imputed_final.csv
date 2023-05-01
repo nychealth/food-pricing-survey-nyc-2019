@@ -1,0 +1,119 @@
+Variable Name,Variable description
+StoreID,Unique identifier
+CreationDate,Date record was created
+StoreName,Store Name
+StoreAddress,Store Address
+ZCTA,ZIP code tabulation area
+ZIPcode,Store ZIP code
+BoroName,Boro (numeric)
+latitude,Latitude
+longitude,Longitude
+Xcoord,Projected X coordinate 
+Ycoord,Projected Y coordinate
+Census.2010.PUMA,2010 Census PUMA
+CD.Code,Community District Code
+Census.CD.Name,Community District Name
+beef_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+beef_price_1lb,Consolidated price of beef option
+beef_price_1lb_imp,Consolidated price of beef option (with imputation)
+bread_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+bread_price_loaf,Consolidated price of bread option
+bread_price_loaf_imp,Consolidated price of bread option (with imputation)
+tomato_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+tomato_price,Consolidated price of tomato option
+tomato_price_imp,Consolidated price of tomato option (with imputation)
+potato_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+potato_price,Consolidated potato of tomato option
+potato_price_imp,Consolidated potato of tomato option (with imputation)
+orange_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+orange_price,Consolidated orange of tomato option
+orange_price_imp,Consolidated orange of tomato option (with imputation)
+lettuce_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+lettuce_price,Consolidated lettuce of tomato option
+lettuce_price_imp,Consolidated lettuce of tomato option (with imputation)
+milk_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+milk_price,Consolidated milk of tomato option
+milk_price_imp,Consolidated milk of tomato option (with imputation)
+strawberries_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+strawberries_price,Consolidated strawberry of tomato option
+strawberries_price_imp,Consolidated strawberry of tomato option (with imputation)
+banana_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+banana_price,Consolidated banana of tomato option
+banana_price_imp,Consolidated banana of tomato option (with imputation)
+eggs_type,Preferred or alternate option recorded? (Preferred/Alternate/Missing)
+eggs_price,Consolidated eggs of tomato option
+eggs_price_imp,Consolidated eggs of tomato option (with imputation)
+missingvalues,Number of missing values
+SFB,Calculated Standard food masket
+SFB_imp,Calculated Standard food masket (after imputing item costs)
+TomatoesAltPrice,What is the price of the tomato option?
+TomatoesAltSale,Is the tomato option on sale?
+TomatoesComments,Comments on the tomato option (if applicable):
+TomatoesOrganic,Are the tomatoes labeled organic?
+LettuceSold,Is lettuce sold in this supermarket?
+LettucePrefSold,Is one head of romaine lettuce available?
+LettucePrefBrand,What is the brand name of the romaine lettuce (if provided)?
+LettucePrefPrice,What is the price of one head of romaine lettuce?
+LettucePrefSale,Is the one head of romaine lettuce on sale?
+LettuceAlt,What is the type of lettuce?
+LettuceAltBrand,What is the brand name of the lettuce option (if provided)?
+LettuceAltAmount,What is the quantity of the lettuce option?
+LettuceAltPrice,What is the price of the lettuce option?
+LettuceAltSale,Is the lettuce option on sale?
+LettuceComment,Comments on the lettuce option (if applicable):
+LettuceOrganic,Is the lettuce labeled organic?
+PotatoesSold,Are potatoes sold in this supermarket?
+PotatoesPrefSold,Are russet potatoes sold by the pound in this supermarket?
+PotatoesPrefBrand,What is the brand name (if provided)?
+PotatoesPrefPrice,What is the price of 1 lb. of russet potatoes?
+PotatoesPrefSale,Are the potatoes on sale?
+PotatoesAlt,What is the type of potato?
+PotatoesAltBrand,What is the brand name of the potato option (if provided)?
+PotatoesAltUnit,What is the unit of sale of the potato option?
+PotatoesAltAmount,What is the amount of the potato option (lbs. or number of pieces)?
+PotatoesAltPrice,What is the price of the potato option?
+PotatoesAltSale,Is the potato option on sale?
+PotatoesComments,Comments on the potato option (if applicable):
+PotatoesOrganic,Are the potatoes labeled organic?
+BeefSold,Is prepackaged ground beef sold in this supermarket?
+BeefPrefSold,Is prepackaged 90% lean ground beef sold by the pound in this supermarket?
+BeefPrefBrand,What is the brand name of the prepackaged of 1 lb. of 90% lean ground beef (if provided)?
+BeefPrefPrice,What is the price of prepackaged 1 lb. of 90% lean ground beef?
+BeefPrefSale,Is the prepackaged 1 lb. of 90% lean ground beef on sale?
+BeefAltLean,What is the lean percentage of this ground beef (if available)?
+BeefAlt,What type of beef (if provided)?
+BeefAltBrand,What is the brand name of the ground beef option (if provided)?
+BeefAltWeight,What is the weight of the ground beef option (lbs.)?
+BeefAltPrice,What is the price of the ground beef option?
+BeefAltSale,Is the ground beef option on sale?
+BeefComment,Comments on the ground beef option (if applicable):
+BeefOrganic,Is theground beef labeled organic?
+MilkSold,Is milk sold in this supermarket?
+MilkPrefSold,"Is 1% fat, 1/2 gallon milk available?"
+MilkPrefBrand,"What is the brand name 1% fat, 1/2 gallon of milk (if provided)?"
+MilkPrefPrice,"What is the price of 1% fat, 1/2 gallon of milk?"
+MilkPrefSale,"Is the 1% fat, 1/2 gallon of milk on sale?"
+MilkAltBrand,What is the brand name of the milk option (if provided)?
+MilkAltSize,What is the size of the container for the Milk option?
+MilkAltFat,What is the fat content for the Milk option?
+MilkAltPrice,What is the price of the milk option?
+MilkAltSale,Is the milk option on sale?
+MilkComment,Comments on the milk option (if applicable):
+MilkOrganic,Is the milk labeled organic?
+EggsPrefSold,Are large eggs sold by the dozen in this supermarket?
+EggsPrefBrand,What is the brand name of the dozen large eggs (if provided)?
+EggsPrefPrice,What is the price of a dozen large eggs?
+EggsOrganic,Are the eggs labeled organic?
+EggsPrefSale,Are the eggs on sale?
+BreadSold,Is bread sold in this supermarket?
+BreadPrefSold,Is whole wheat bread sold by the loaf in this supermarket?
+BreadPrefBrand,What is the brand name of the whole wheat bread (if provided)?
+BreadPrefPrice,What is the price of a loaf of whole wheat bread?
+BreadPrefSale,Is the loaf of whole wheat bread on sale?
+BreadAlt,What is the type of bread?
+BreadAltBrand,What is the brand name of the bread type (if provided)?
+BreadAltPrice,What is the price of the bread option?
+BreadAltSale,Is the loaf of bread option on sale?
+BreadComment,Comments on the bread option (if applicable):
+BreadOrganic,Is the loaf of bread labeled organic?
+Comment,Overall comments
