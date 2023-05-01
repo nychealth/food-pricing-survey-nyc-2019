@@ -1,4 +1,5 @@
-# food-pricing-survey-nyc-2019
+# Food Pricing Survey, NYC (2019)
+
 This repository contains two datasets that were describe in the manuscript titled "Data on location and retail price of a standard food basket in supermarkets across New York City" public in the journal Data In Brief and will be made available upon publication. The data sets contain price data for 10 perishable food items, collected via in-person visits to 163 supermarkets across New York City. 
 
 Finally, portions of the data have been visualized in the Food Environment Equity Dashboard created by the Urban Food Policy Institute at CUNY (can be seen here: https://sites.google.com/view/feed-nyc/food-affordability)
