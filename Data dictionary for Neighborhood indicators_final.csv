@@ -1,0 +1,33 @@
+Variabe,Description,Variables pulled from the Census API
+zip_code_tabulation_area,ZIP code tabulation are,
+percent_owner,Percent of houseolds that are owner occupied,B25003_002E/B25001_001E 
+Variabe,Description,Variable pulled from the Census API
+zip_code_tabulation_area,ZIP code tabulation are,
+percent_owner,Percent of houseolds that are owner occupied,B25003_002E/B25001_001E 
+qrt_percent_owner,Quantile by percent_owner,
+percent_rentburdened,Percent of renter-occupied households where the rent is 30% or more of the total household income.  ,(B25106_028E+B25106_032E+B25106_036E+B25106_040E+B25106_044E)/ B25106_024E
+qrt_percent_rentburdened,Quantile by percent_rentburdened,
+HH_value,Median value of the household,B25077_001E
+qrt_HH_value,Quantile by HH_value,
+percent_snap,Percent of all households that received Food Stamps or SNAP benefits,B22001_002E/B22001_001E
+qrt_percent_snap,Quantile by percent_snap,
+percent_poverty,Percent of the population living under the federal poverty line,(C17002_002E+C17002_003E)/C17002_001E
+qrt_percent_poverty,Quantile by percent_poverty,
+percent_employed,Percent of the population over the age of 16 that were employed ,B23025_004E/B23025_001E
+qrt_percent_employed,Quantile by percent_employed,
+percent_lths,Percent of the population over the age of 24 that didn’t complete high school,B06009_002E/B06009_001E
+qrt_percent_lths,Quantile by percent_lths,
+percent_noenglish,Percent of the population aged 14 or older that report speaking English “not well” or “not at all”. ,(B16005_007E+B16005_008E+B16005_012E+B16005_013E+B16005_017E+B16005_018E+B16005_022E+B16005_023E+B16005_029E+B16005_030E+B16005_034E+B16005_035E+B16005_039E+B16005_040E+B16005_044E+B16005_045E)/B16005_001E
+qrt_percent_noenglish,Quantile by percent_noenglish,
+percent_black,Percent of the population that identifies as Black or African American.,B02009_001E/B02001_001E
+qrt_percent_black,Quantile by percent_black,
+percent_latino,Percent of the population that identifies as Hispanic or Latino/a.,B03001_003E/ B03001_001E
+qrt_percent_latino,Quantile by percent_latino,
+percent_aapi,Percent of the population that identifies as Asian or Pacific Islander.,B02011_001E/B02001_001E
+qrt_percent_aapi,Quantile by percent_aapi,
+percent_other,Percent of the population that identifies as Other.,B02013_001E/B02001_001E
+qrt_percent_other,Quantile by percent_other,
+percent_noinsurance,Percent of the population that reports not having insurance ,(B27010_017E+B27010_033E+B27010_050E+B27010_066E)/                                          (B27010_002E+B27010_018E+B27010_034E+B27010_051E)
+qrt_percent_noinsurance,Quantile by percent_noinsurance,
+GINI_index,Estimated ZCTA-level GINI-coefficient,B19083_001E
+qrt_GINI_index,Quantile by GINI_index,
