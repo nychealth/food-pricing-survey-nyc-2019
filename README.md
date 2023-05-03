@@ -13,7 +13,10 @@ Finally, portions of the data have been visualized in the Food Environment Equit
 | **Data dictionary for Raw_Pricing_data_final.csv** | Data Dictionary | Data Dictionary for the dataset containing the raw pricing data |
 | **Cleaned_Pricing_data_imputed_final.csv** |	Dataset	| Analytic dataset of the food prices.|
 | **Data dictionary for Cleaned_Pricing_data_imputed_final.csv** | Data Dictionary | Data Dictionary for the analytic dataset of pricing data |
-| **Pulling ZCTA-level ACS data.Rmd**	| R Markdown script | This code pulls 2014-2019 ACS data from the Census API. Generates a dataset with indicators for ZCTAs in NYC |
+| **Pulling ZCTA-level ACS data.Rmd**	| R Markdown script | This code pulls 2014-2019 ACS data from the Census API. Generates a dataset with indicators for ZCTAs in NYC. The results are exported to to the dataset called  *Neighborhood indicators_final.csv* (see below)|
+| **Neighborhood indicators_final.csv**	| Dataset | This dataset includes the calculated indicators for each ZIP code |
+| **Data dictionary for Neighborhood indicators_final.csv**	| Data Dictionary | Data Dictionary for the dataset of ZIP code level indicators |
+
 
 
 # Datasets
@@ -24,7 +27,7 @@ The two datasets provided here contain pricing data recoded for the 10 food item
 | -------- | ----------- |
 |**Raw_Pricing_data_final**| This dataset contains raw data collected on each of the 10 pre-selected food items and contains additional information related to data collection including  whether a preferred or alternative version (e.g., presentation, packaging) of each food item was identified in the store; item brand name; whether the item was on sale; a flag indicating whether the item was organic. |
 | **Cleaned_Pricing_data_imputed_final** | Analytic data includes consolidated price values (of the preferred and alternate options) into a single variable and imputed missing values for each food items. In addition, it includes to the cost of the "food basket" made from summing the cost of the ten pre-selected items.|
-
+| **Neighborhood indicators_final.csv**	| This dataset contains the ZIP level indicators, calculated using ACS data pulled from the Census API. The R code used to generate these estimates is available in the *Pulling ZCTA-level ACS data.Rmd* file |
 
 
 # Sampling and Statistical Considerations
