@@ -1,4 +1,6 @@
 # Food Pricing Survey, NYC (2019)
+[![DOI](https://zenodo.org/badge/634944429.svg)](https://zenodo.org/badge/latestdoi/634944429)
+
 
 This repository contains two datasets that were described in the manuscript titled "Data on location and retail price of a standard food basket in supermarkets across New York City" in the journal Data In Brief. The data sets contain price data for 10 perishable food items, collected via in-person visits to 163 supermarkets across New York City. 
 
