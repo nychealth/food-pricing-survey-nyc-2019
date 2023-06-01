@@ -2,7 +2,7 @@
 [![DOI](https://zenodo.org/badge/634944429.svg)](https://zenodo.org/badge/latestdoi/634944429)
 
 
-This repository contains two datasets that were described in the manuscript titled "Data on location and retail price of a standard food basket in supermarkets across New York City" in the journal Data In Brief. The data sets contain price data for 10 perishable food items, collected via in-person visits to 163 supermarkets across New York City. 
+This repository contains two datasets that were described in the manuscript titled "Data on location and retail price of a standard food basket in supermarkets across New York City" in the journal Data In Brief available at https://www.sciencedirect.com/science/article/pii/S2352340923003414. The data sets contain price data for 10 perishable food items, collected via in-person visits to 163 supermarkets across New York City. 
 
 Finally, portions of the data have been visualized in the Food Environment Equity Dashboard created by the Urban Food Policy Institute at CUNY (can be seen here: https://sites.google.com/view/feed-nyc/food-affordability)
 
